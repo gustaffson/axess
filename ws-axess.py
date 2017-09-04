@@ -9,7 +9,7 @@
 
 import sqlite3
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Api
 
 app = Flask(__name__)
 api = Api(app)
@@ -35,48 +35,23 @@ def card_uid():
     return final
 
 
-def connection_init():
-    global conn
-    conn = sqlite3.connect('axess-ws.db')
-
-
-def connection_closed():
-    conn.close()
-    print(" <-- Desligado da BD")
-
-
-def successful_transaction():
-    global som, rele, sucesso
-    connection_closed()
-    return som + "\r\n" + rele + "\r\n"
-
-
-def denied_transaction():
-    global sound_deny
-    connection_closed()
-    return sound_deny + "\r\n"
-
-
 def checkCard():
-   global conn
-   card = card_uid()
-   connection_init()
-   cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + '"' + card + '"')
-   result = cursor.fetchone()
-   if result[0] is 1:
-            successful_transaction()
-            return successful_transaction()
-   else:
-            denied_transaction()
-            return denied_transaction()
+    global conn
+    card = card_uid()
+    conn = sqlite3.connect('axess-ws.db')
+    cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + '"' + card + '"')
+    result = cursor.fetchone()
+    if result[0] is 1:
+        conn.close()
+        return som + "\r\n" + rele + "\r\n"
+    else:
+        conn.close()
+        return sound_deny + "\r\n"
 
 
 @app.route('/<path:path>')
 def catch_all(path):
     pedido = path
-    # batch = request.args
-    online_transaction = request.args.getlist('trsn')
-    print(pedido)
     if pedido == "batch":
         return "ack=1"
     elif pedido == "online":
@@ -84,8 +59,7 @@ def catch_all(path):
         return result
     elif path == "keepalive":
         return "ack=1" + "\r\n"
-    else:
-        pass
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=porta)
