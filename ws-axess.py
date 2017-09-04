@@ -1,11 +1,11 @@
 #####################################################################################
-#  Axess TMC Control Webservice
+#  Axess TMC Control Webservice - ver. 0.4
 #  Developed by Gustavo Pinto
 #  Not licenced for any usage - Copyright reserved
 #
 #  Sample de Http Request terminal -> software
 #
-#  http://localhost:8181/online
+#  http://localhost:5002/online
 #  ?badge=20101201,152110,0,0,123456789,1
 #  &TerminalID=AxDoorMainEntrance
 #  &mac=00:04:24:00:00:00:11:22
@@ -24,22 +24,17 @@ som, rele = "beep=1", "relay=1,50"
 somCr, releCr = som + '\r', rele + '\r'
 somCrlf, releCrlf = somCr + '\n', releCr + '\n'
 soundDeny = "beep=2"  # Action Deny Entry - Axess Default
-sucesso = " --- Sucesso! --- "
+porta = '5002'
 
 # Demo Parameters
 # cardUid = '123456789'  # Card UID Demo
 terminalRequest = "http://localhost:8181/online?badge=20101201,152110,0,0,123456789,1&TerminalID=AxDoorMainEntrance&mac=00:04:24:00:00:00:11:22"
 
-def requested_uri():
-    # @app.route('/', defaults={'path': ''})
-    # @app.route('/<path:path>')
-    # req_uri = path
+def card_uid():
     req_uri = request.url
-    # req_uri = terminalRequest
     print(req_uri)
     start_badge = (req_uri.find("?"))
     end_badge = (req_uri.find("&"))
-    terminal_id = end_badge
     raw_string = req_uri[start_badge:end_badge]
     raw_left_date = raw_string.find(",")
     raw_left_time = raw_string.find(",", raw_left_date + 1)
@@ -50,9 +45,11 @@ def requested_uri():
     print("Badge: ", final)
     return final
 
+
 def connection_init():
     global conn
     conn = sqlite3.connect('axess-ws.db')
+
 
 def connection_closed():
     conn.close()
@@ -61,41 +58,30 @@ def connection_closed():
 
 def successful_transaction():
     global somCrlf, releCrlf, sucesso
-    print(somCrlf + releCrlf)
-    print(sucesso)
-    datetime = (strftime("%Y-%m-%d %H:%M:%S", gmtime()))
-    print(datetime)
-    print("")
     connection_closed()
     return somCrlf + releCrlf
 
 
 def denied_transaction():
     global soundDeny
-    print(sucesso, "Acesso Negado")
-    datetime = (strftime("%Y-%m-%d %H:%M:%S", gmtime()))
-    print(datetime)
-    requested_uri()
     connection_closed()
     return soundDeny
 
 
-class CheckUserAPB(Resource):
-    def get(self):
-        global sucesso, conn
-        card_uid = requested_uri()
-        connection_init()
-        cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + card_uid)
-        print(" --> Ligado à BD")
-        print("")
-        result = cursor.fetchone()
-        if result[0] is 1:
+def checkCard():
+   global conn
+   card_uid = card_uid()
+   connection_init()
+   cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + card_uid)
+   print(" --> Ligado à BD")
+   print("")
+   result = cursor.fetchone()
+   if result[0] is 1:
             successful_transaction()
             return successful_transaction()
-        else:
+   else:
             denied_transaction()
             return denied_transaction()
-
 
 class CheckManual(Resource):
     def get(self):
@@ -103,14 +89,26 @@ class CheckManual(Resource):
         print("Introduziu :" + manual_card_uid)
         CheckUserAPB()
 
+from flask import Flask
+app = Flask(__name__)
 
-# api.add_resource(CheckUserAPB, request.args)  # Validar Cartão
-# api.add_resource(CheckManual, '/manual')  # Validar Manual
 
-@app.route('/validar/')
-def validar():
-    pedido = request.args.get('badge')
-    return pedido
+# @app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    pedido = path
+    # batch = request.args
+    online_transaction = request.args.getlist('trsn')
+    print(pedido)
+    if pedido == "batch":
+        return "ack=1"
+    elif pedido == "online":
+        checkCard()
+        return "relay=1,50" + "\r\n" + "beep=1"
+    elif path == "keepalive":
+        return "ack=1" + "\r\n"
+    else:
+        pass
 
 if __name__ == '__main__':
-    app.run(port='5002')
+    app.run(host='0.0.0.0', port=porta)
