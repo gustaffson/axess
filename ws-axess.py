@@ -1,9 +1,7 @@
 #################################################################################################################
-#  Axess TMC Control Webservice - ver. 0.4
+#  Ax Webservice - ver. 0.4
 #  Developed by Gustavo Pinto
 #  Not licenced for any usage - Copyright reserved
-#
-#  Sample de Http Request terminal -> software
 #################################################################################################################
 
 import sqlite3
@@ -14,11 +12,7 @@ app = Flask(__name__)
 api = Api(app)
 
 # Parameters
-som, rele = "beep=1", "relay=1,50"
-sound_deny = "beep=2"
-sound_accept = "beep=1"
-porta = '5002'
-
+som, rele, sound_deny, sound_accept, porta = "beep=1", "relay=1,50", "beep=2", "beep=1","5002"
 
 def card_uid():
     req_uri = request.url
