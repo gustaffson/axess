@@ -5,30 +5,21 @@
 #
 #  Sample de Http Request terminal -> software
 #
-#  http://localhost:5002/online
-#  ?badge=20101201,152110,0,0,123456789,1
-#  &TerminalID=AxDoorMainEntrance
-#  &mac=00:04:24:00:00:00:11:22
 #####################################################################################
 
 import sqlite3
 from flask import Flask, request
 from flask_restful import Resource, Api
-from time import gmtime, strftime
 
 app = Flask(__name__)
 api = Api(app)
 
-# Relay Parameters
+# Parameters
 som, rele = "beep=1", "relay=1,50"
-somCr, releCr = som + '\r', rele + '\r'
-somCrlf, releCrlf = somCr + '\n', releCr + '\n'
-soundDeny = "beep=2"  # Action Deny Entry - Axess Default
+sound_deny = "beep=2"
+sound_accept = "beep=1"
 porta = '5002'
 
-# Demo Parameters
-# cardUid = '123456789'  # Card UID Demo
-terminalRequest = "http://localhost:8181/online?badge=20101201,152110,0,0,123456789,1&TerminalID=AxDoorMainEntrance&mac=00:04:24:00:00:00:11:22"
 
 def card_uid():
     req_uri = request.url
@@ -57,15 +48,15 @@ def connection_closed():
 
 
 def successful_transaction():
-    global somCrlf, releCrlf, sucesso
+    global som, rele, sucesso
     connection_closed()
-    return somCrlf + releCrlf
+    return som + "\r\n" + rele + "\r\n"
 
 
 def denied_transaction():
-    global soundDeny
+    global sound_deny
     connection_closed()
-    return soundDeny
+    return sound_deny + "\r\n"
 
 
 def checkCard():
@@ -73,8 +64,6 @@ def checkCard():
    card_uid = card_uid()
    connection_init()
    cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + card_uid)
-   print(" --> Ligado à BD")
-   print("")
    result = cursor.fetchone()
    if result[0] is 1:
             successful_transaction()
@@ -93,7 +82,6 @@ from flask import Flask
 app = Flask(__name__)
 
 
-# @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
     pedido = path
