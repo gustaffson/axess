@@ -19,10 +19,10 @@ def card_uid():
     start_badge = (req_uri.find("?"))
     end_badge = (req_uri.find("&"))
     raw_string = req_uri[start_badge:end_badge]
-    raw_left_date = raw_string.find(",")
-    raw_left_time = raw_string.find(",", raw_left_date + 1)
-    raw_left_0 = raw_string.find(",", raw_left_time + 1)
-    raw_left_card = raw_string.find(",", raw_left_0 + 1)
+    raw_right_date = raw_string.find(",")
+    raw_right_time = raw_string.find(",", raw_right_date + 1)
+    raw_right_direction = raw_string.find(",", raw_right_time + 1)
+    raw_left_card = raw_string.find(",", raw_right_direction + 1)
     raw_right_card = raw_string.find(",", raw_left_card + 1)
     final = raw_string[(raw_left_card + 1):raw_right_card]
     return final
