@@ -23,7 +23,6 @@ porta = '5002'
 
 def card_uid():
     req_uri = request.url
-    print(req_uri)
     start_badge = (req_uri.find("?"))
     end_badge = (req_uri.find("&"))
     raw_string = req_uri[start_badge:end_badge]
@@ -33,7 +32,6 @@ def card_uid():
     raw_left_card = raw_string.find(",", raw_left_0 + 1)
     raw_right_card = raw_string.find(",", raw_left_card + 1)
     final = raw_string[(raw_left_card + 1):raw_right_card]
-    print("Badge: ", final)
     return final
 
 
@@ -61,9 +59,9 @@ def denied_transaction():
 
 def checkCard():
    global conn
-   card_uid = card_uid()
+   card = card_uid()
    connection_init()
-   cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + card_uid)
+   cursor = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + '"' + card + '"')
    result = cursor.fetchone()
    if result[0] is 1:
             successful_transaction()
@@ -71,15 +69,6 @@ def checkCard():
    else:
             denied_transaction()
             return denied_transaction()
-
-class CheckManual(Resource):
-    def get(self):
-        manual_card_uid = str(input("Passe o cartão no leitor:"))
-        print("Introduziu :" + manual_card_uid)
-        CheckUserAPB()
-
-from flask import Flask
-app = Flask(__name__)
 
 
 @app.route('/<path:path>')
@@ -91,8 +80,8 @@ def catch_all(path):
     if pedido == "batch":
         return "ack=1"
     elif pedido == "online":
-        checkCard()
-        return "relay=1,50" + "\r\n" + "beep=1"
+        result = checkCard()
+        return result
     elif path == "keepalive":
         return "ack=1" + "\r\n"
     else:
