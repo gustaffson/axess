@@ -84,9 +84,7 @@ def process_request():
     return final
 
 
-@app.route('/<path:path>')
-
-, methods = ['GET', 'POST']
+@app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
     pedido = path
     if pedido == "batch":
