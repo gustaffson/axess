@@ -1,7 +1,7 @@
-#################################################################################################################
+#######################################################################################################################
 #  Ax Webservice - ver. 0.4
 #  Developed by Gustavo Pinto - Módulos Flask, Flask Restful, sqlite3 e datetime
-#################################################################################################################
+#######################################################################################################################
 
 import sqlite3
 from flask import Flask, request
@@ -18,18 +18,21 @@ som, rele, sound_deny, sound_accept, porta = "beep=1", "relay=1,50", "beep=2", "
 def check_mov():
     conn = sqlite3.connect('axess-ws.db')
     card, direction, term_id = process_request()[0], process_request()[1], process_request()[2]
+
     select_id = conn.execute("select max(idTransaction) from transactions")
     id_transaction = select_id.fetchone()
     if id_transaction[0] is None:
         conn.execute("insert into transactions values (?, ?, ?, ?, ?)",
                      (1, "0000000000000000", datetime.now(), "INIT BD", "99"))
         conn.commit()
+
     q_entrada = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + '"' + card + '"')
     val_entrada = q_entrada.fetchone()
     q_saida = conn.execute("select count(idCard) from cards where cardUid = " + '"' + card + '"')
     val_saida = q_saida.fetchone()
     q_livre = conn.execute("select count(idCard) from cards where freeAcess = 1 and cardUid = " + '"' + card + '"')
     val_livre = q_livre.fetchone()
+
     if val_entrada[0] is 1 and direction == "1" and val_livre is not 1:
         conn.execute("update cards set apbStatus = 1 where cardUid = " + '"' + card + '"')
         select_id = conn.execute("select max(idTransaction) from transactions")
@@ -59,9 +62,8 @@ def check_mov():
         conn.execute("insert into transactions values (?, ?, ?, ?, ?)", ((int(id_transaction[0]) + 1), card,
                                                                          datetime.now(), term_id, 3))
         conn.commit()
-        conn.close()
         return sound_deny + "\r\n"
-    conn.close()
+
 
 def process_request():
     req_uri = request.url
@@ -79,6 +81,7 @@ def process_request():
     final = (raw_transaction[(raw_left_card + 1):raw_right_card], direction, term_id)
     return final
 
+
 @app.route('/<path:path>')
 def catch_all(path):
     pedido = path
@@ -90,7 +93,7 @@ def catch_all(path):
     elif path == "keepalive":
         return "ack=1" + "\r\n"
     else:
-        return ("Tipo de pedido não suportado! Verifique a documentação!")
+        return "Tipo de pedido não suportado! Verifique a documentação!"
 
 
 if __name__ == '__main__':
