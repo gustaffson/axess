@@ -67,6 +67,24 @@ def check_mov():
         return sound_deny + "\r\n"
 
 
+def store_mov():
+    conn = sqlite3.connect('axess-ws.db')
+    card, direction, term_id = process_request()[0], process_request()[1], process_request()[2]
+    select_id = conn.execute("select max(idTransaction) from transactions")
+    id_transaction = select_id.fetchone()
+    if id_transaction[0] is None:
+        conn.execute("insert into transactions values (?, ?, ?, ?, ?)",
+                     (1, "0000000000000000", datetime.now(), "INIT BD", "99"))
+        conn.commit()
+
+        select_id = conn.execute("select max(idTransaction) from transactions")
+    id_transaction = select_id.fetchone()
+    conn.execute("insert into transactions values (?, ?, ?, ?, ?)", ((int(id_transaction[0]) + 1), card,
+                                                                     datetime.now(), term_id, direction))
+    conn.commit()
+    conn.close()
+
+
 def process_request():
     req_uri = request.url
     start_transaction = (req_uri.find("?"))
@@ -88,6 +106,8 @@ def process_request():
 def catch_all(path):
     pedido = path
     if pedido == "batch":
+        process_request()
+        store_mov()
         return "ack=1" + "\r\n"
     elif pedido == "online":
         result = check_mov()
