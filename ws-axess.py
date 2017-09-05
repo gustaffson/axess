@@ -1,6 +1,6 @@
 #################################################################################################################
 #  Ax Webservice - ver. 0.4
-#  Developed by Gustavo Pinto
+#  Developed by Gustavo Pinto - Modulos Flask, Flask Restful, sqlite3 e datetime
 #################################################################################################################
 
 import sqlite3
