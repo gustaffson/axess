@@ -1,6 +1,6 @@
 #################################################################################################################
 #  Ax Webservice - ver. 0.4
-#  Developed by Gustavo Pinto - Modulos Flask, Flask Restful, sqlite3 e datetime
+#  Developed by Gustavo Pinto - Módulos Flask, Flask Restful, sqlite3 e datetime
 #################################################################################################################
 
 import sqlite3
@@ -16,8 +16,14 @@ som, rele, sound_deny, sound_accept, porta = "beep=1", "relay=1,50", "beep=2", "
 
 
 def check_mov():
-    card, direction, term_id = process_request()[0], process_request()[1], process_request()[2]
     conn = sqlite3.connect('axess-ws.db')
+    card, direction, term_id = process_request()[0], process_request()[1], process_request()[2]
+    select_id = conn.execute("select max(idTransaction) from transactions")
+    id_transaction = select_id.fetchone()
+    if id_transaction[0] is None:
+        conn.execute("insert into transactions values (?, ?, ?, ?, ?)",
+                     (1, "0000000000000000", datetime.now(), "INIT BD", "99"))
+        conn.commit()
     q_entrada = conn.execute("select count(idCard) from cards where apbStatus = 0 and cardUid = " + '"' + card + '"')
     val_entrada = q_entrada.fetchone()
     q_saida = conn.execute("select count(idCard) from cards where cardUid = " + '"' + card + '"')
@@ -29,36 +35,33 @@ def check_mov():
         select_id = conn.execute("select max(idTransaction) from transactions")
         id_transaction = select_id.fetchone()
         conn.execute("insert into transactions values (?, ?, ?, ?, ?)",
-                     ((id_transaction[0] + 1), card, datetime.now(), term_id, direction))
+                     ((int(id_transaction[0]) + 1), card, datetime.now(), term_id, direction))
         conn.commit()
-        conn.close()
         return som + "\r\n" + rele + "\r\n"
     elif val_saida[0] is 1 and direction == "0" and val_livre is not 1:
         conn.execute("update cards set apbStatus = 0 where cardUid = " + '"' + card + '"')
         select_id = conn.execute("select max(idTransaction) from transactions")
         id_transaction = select_id.fetchone()
         conn.execute("insert into transactions values (?, ?, ?, ?, ?)",
-                     ((id_transaction[0] + 1), card, datetime.now(), term_id, direction))
+                     ((int(id_transaction[0]) + 1), card, datetime.now(), term_id, direction))
         conn.commit()
-        conn.close()
         return som + "\r\n" + rele + "\r\n"
     elif val_livre[0] is 1:
         select_id = conn.execute("select max(idTransaction) from transactions")
         id_transaction = select_id.fetchone()
-        conn.execute("insert into transactions values (?, ?, ?, ?, ?)", ((id_transaction[0] + 1),
+        conn.execute("insert into transactions values (?, ?, ?, ?, ?)", ((int(id_transaction[0]) + 1),
                                                                          card, datetime.now(), term_id, direction))
         conn.commit()
-        conn.close()
         return som + "\r\n" + rele + "\r\n"
     else:
         select_id = conn.execute("select max(idTransaction) from transactions")
         id_transaction = select_id.fetchone()
-        conn.execute("insert into transactions values (?, ?, ?, ?, ?)", ((id_transaction[0] + 1), card, datetime.now(),
-                                                                         term_id, 3))
+        conn.execute("insert into transactions values (?, ?, ?, ?, ?)", ((int(id_transaction[0]) + 1), card,
+                                                                         datetime.now(), term_id, 3))
         conn.commit()
         conn.close()
         return sound_deny + "\r\n"
-
+    conn.close()
 
 def process_request():
     req_uri = request.url
