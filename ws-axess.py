@@ -85,6 +85,8 @@ def process_request():
 
 
 @app.route('/<path:path>')
+
+, methods = ['GET', 'POST']
 def catch_all(path):
     pedido = path
     if pedido == "batch":
