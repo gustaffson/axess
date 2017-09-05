@@ -88,7 +88,7 @@ def process_request():
 def catch_all(path):
     pedido = path
     if pedido == "batch":
-        return "ack=1"
+        return "ack=1" + "\r\n"
     elif pedido == "online":
         result = check_mov()
         return result
