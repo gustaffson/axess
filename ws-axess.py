@@ -17,6 +17,7 @@ som, rele, sound_deny, sound_accept, porta = "beep=1", "relay=1,50", "beep=2", "
 card = ''
 term_id = ''
 resultado = 0
+conn = sqlite3.connect('axess-ws.db')
 
 
 def resultado_terminal():
@@ -37,6 +38,7 @@ def catch_all(path):
     global date_transaction
     global time_transaction
     global resultado
+    global conn
     pedido = path
     if 'online' in pedido:
         mensagem=request.args
@@ -53,18 +55,34 @@ def catch_all(path):
         time_transaction = transaction_split[1]
         print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":" + time_transaction[2:4] + ":" + time_transaction[-2:])
         print()
-        conn = sqlite3.connect('axess-ws.db')
-        cursor = conn.execute('SELECT count(*) FROM cards WHERE cardUid = "' + str(card) + '"')
-        rows = cursor.fetchone()
-        contador = int(rows[0])
-        print("VÁLIDOS EM BD: ", contador)
+        cursor = conn.execute('SELECT count(*) FROM cards WHERE freeAcess = 1 and cardUid = "' + str(card) + '"')
+        cursor_credit = conn.execute('SELECT credit FROM cards WHERE cardUid ="' + str(card) + '"')
+        rows = cursor.fetchall()
+        rows_credit = cursor_credit.fetchall()
+        contador = rows[0]
+        saldo = rows_credit[0]
+        saldo_final = saldo[0]-1
+        print("Contador:", contador[0])
+        print("Saldo Inicial:", saldo)
+        print("VÁLIDOS EM BD: ", contador[0])
         print()
-        if contador == 1:
+        if contador[0] == 1:
             resultado = 1 # ACEITAR MOVIMENTO
-            return sound_accept + "\r\n" + rele + "\r\n"
+            print("FREE ACESS")
+            return resultado_terminal()
+        elif saldo[0] >= 1:
+            resultado = 1  # ACEITAR MOVIMENTO E DEBITAR SALDO
+            cursor = conn.execute('UPDATE cards SET credit = ' + str(saldo_final) + ' WHERE cardUid = "' + str(card) + '"')
+            print("DEBITAR SALDO:", saldo_final)
+            print()
+            conn.commit()
+
+            return resultado_terminal()
         else:
             resultado = 0 # REJEITAR MOVIMENTO!
-            return sound_deny + "\r\n"
+            print("REJEITAR ENTRADA")
+            return resultado_terminal()
+
     elif 'batch' in pedido:
         return "ack=1" + "\r\n"
     elif 'keepalive' in pedido:
