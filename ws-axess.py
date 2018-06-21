@@ -1,8 +1,8 @@
+# ! / usr / bin / python
+# coding=utf-8
 """
   Ax Webservice - ver. 0.80
   Developed by Gustavo Pinto - Módulos Flask, Flask Restful, sqlite3 e datetime
-  !/usr/bin/python
-  -*- coding: utf8 -*-
 """
 
 import sqlite3
