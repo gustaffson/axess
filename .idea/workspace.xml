@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fbec499d-9414-43c4-b16d-cfc775ebe425" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/axess-ws.db" afterPath="$PROJECT_DIR$/axess-ws.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ws-axess.py" afterPath="$PROJECT_DIR$/ws-axess.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -164,6 +162,14 @@
       <option name="presentableId" value="Default" />
       <updated>1504116048385</updated>
     </task>
+    <task id="LOCAL-00001" summary="Rework completo.">
+      <created>1529545518843</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1529545518843</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -194,6 +200,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Rework completo." />
+    <option name="LAST_COMMIT_MESSAGE" value="Rework completo." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
