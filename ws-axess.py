@@ -36,6 +36,7 @@ def catch_all(path):
     global conn
     pedido = path
     if 'online' in pedido:
+        conn = sqlite3.connect('axess-ws.db')
         mensagem=request.args
         print()
         print("NOME DO TERMINAL: ", mensagem['id'])
