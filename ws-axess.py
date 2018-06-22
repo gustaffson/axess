@@ -63,7 +63,7 @@ def catch_all(path):
         saldo = rows_credit[0]
         saldo_final = saldo[0]-1
         print("Contador:", contador[0])
-        print("Saldo Inicial:", saldo)
+        print("Saldo Inicial:", saldo[0])
         print("VÁLIDOS EM BD: ", contador[0])
         print()
         if contador[0] == 1:
@@ -76,11 +76,11 @@ def catch_all(path):
             print("DEBITAR SALDO:", saldo_final)
             print()
             conn.commit()
-
             return resultado_terminal()
         else:
             resultado = 0 # REJEITAR MOVIMENTO!
             print("REJEITAR ENTRADA")
+            print()
             return resultado_terminal()
 
     elif 'batch' in pedido:
