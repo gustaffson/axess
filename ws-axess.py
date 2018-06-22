@@ -30,13 +30,8 @@ def resultado_terminal():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
-    global id_transaction
-    global direction
     global term_id
     global card
-    global transaction_stamp
-    global date_transaction
-    global time_transaction
     global resultado
     global conn
     pedido = path
@@ -51,45 +46,52 @@ def catch_all(path):
         print()
         print("CARTÃO UID:\r\n", card)
         date_transaction = transaction_split[0]
-        print("DATA DO MOVIMENTO:\r\n", date_transaction[-2:] + "-" + date_transaction[4:6] + "-" + date_transaction[:4])
+        print("DATA DO MOVIMENTO:\r\n", date_transaction[-2:] + "-"
+              + date_transaction[4:6] + "-" + date_transaction[:4])
         time_transaction = transaction_split[1]
-        print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":" + time_transaction[2:4] + ":" + time_transaction[-2:])
+        print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":"
+              + time_transaction[2:4] + ":" + time_transaction[-2:])
         print()
-        cursor = conn.execute('SELECT count(*) FROM cards WHERE freeAcess = 1 and cardUid = "' + str(card) + '"')
+        cursor = conn.execute('SELECT count(*) FROM cards WHERE freeAcess = 1 and cardUid = "'
+                              + str(card) + '"')
         cursor_credit = conn.execute('SELECT credit FROM cards WHERE cardUid ="' + str(card) + '"')
         rows = cursor.fetchall()
         rows_credit = cursor_credit.fetchall()
         contador = rows[0]
         saldo = rows_credit[0]
         saldo_final = saldo[0]-1
-        print("Contador:", contador[0])
-        print("Saldo Inicial:", saldo[0])
-        print("VÁLIDOS EM BD: ", contador[0])
+        print("TAG LIVRE ACESSO VÁLIDA:", contador[0])
+        print("SALDO INICIAL:", saldo[0])
         print()
         if contador[0] == 1:
             resultado = 1 # ACEITAR MOVIMENTO
             print("FREE ACESS")
+            conn.close()
             return resultado_terminal()
         elif saldo[0] >= 1:
             resultado = 1  # ACEITAR MOVIMENTO E DEBITAR SALDO
-            cursor = conn.execute('UPDATE cards SET credit = ' + str(saldo_final) + ' WHERE cardUid = "' + str(card) + '"')
+            cursor = conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
+                                  + ' WHERE cardUid = "' + str(card) + '"')
             print("DEBITAR SALDO:", saldo_final)
             print()
             conn.commit()
+            conn.close()
             return resultado_terminal()
         else:
             resultado = 0 # REJEITAR MOVIMENTO!
             print("REJEITAR ENTRADA")
             print()
+            conn.close()
             return resultado_terminal()
     elif 'batch' in pedido:
         return "ack=1" + "\r\n"
     elif 'keepalive' in pedido:
         return "ack=1" + "\r\n"
     else:
-        texto_final = "Tipo de pedido não suportado! Verifique a documentação!" + "\r\n" + "Grupo Copigés - suporte@copiges.pt" + "\r\n"
+        texto_final = "Tipo de pedido não suportado! Verifique a documentação!" \
+                      + "\r\n" + "Grupo Copigés - suporte@copiges.pt" + "\r\n"
+        conn.close()
         return texto_final
-    conn.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=porta)
