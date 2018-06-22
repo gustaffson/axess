@@ -82,7 +82,6 @@ def catch_all(path):
             print("REJEITAR ENTRADA")
             print()
             return resultado_terminal()
-
     elif 'batch' in pedido:
         return "ack=1" + "\r\n"
     elif 'keepalive' in pedido:
@@ -90,6 +89,7 @@ def catch_all(path):
     else:
         texto_final = "Tipo de pedido não suportado! Verifique a documentação!" + "\r\n" + "Grupo Copigés - suporte@copiges.pt" + "\r\n"
         return texto_final
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=porta)
