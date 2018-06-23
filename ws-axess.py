@@ -27,6 +27,15 @@ def resultado_terminal():
         return sound_deny + "\r\n"
 
 
+def is_empty(any_structure):
+    if any_structure:
+        print('Contem registos.')
+        return False
+    else:
+        print('Não contém registos.')
+        return True
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
 def catch_all(path):
@@ -59,13 +68,16 @@ def catch_all(path):
         rows = cursor.fetchall()
         rows_credit = cursor_credit.fetchall()
         contador = rows[0]
+        if is_empty(rows_credit) is True and contador == (0,):  # SE NÃO TIVER SALDO NEGA ENTRADA
+            resultado = 0
+            return resultado_terminal()
         saldo = rows_credit[0]
         saldo_final = saldo[0]-1
         print("TAG LIVRE ACESSO VÁLIDA:", contador[0])
         print("SALDO INICIAL:", saldo[0])
         print()
         if contador[0] == 1:
-            resultado = 1 # ACEITAR MOVIMENTO
+            resultado = 1  # ACEITAR MOVIMENTO
             print("FREE ACESS")
             conn.close()
             return resultado_terminal()
