@@ -1,7 +1,7 @@
 # ! / usr / bin / python
 # coding=utf-8
 """
-  Ax Webservice - ver. 0.80
+  Ax Webservice - ver. 1.05
   Developed by Gustavo Pinto - Módulos Flask, Flask Restful, sqlite3 e datetime
 """
 
@@ -19,11 +19,39 @@ term_id = ''
 resultado = 0
 conn = sqlite3.connect('axess-ws.db')
 
+def online_request():
+    global term_id, card, resultado, conn, mensagem, transaction_split, \
+        transaction_stamp, date_transaction, time_transaction, rows, rows_credit, \
+        contador, resultado, saldo, saldo_final
+    mensagem = request.args
+    transaction_stamp = mensagem['trsn']
+    transaction_split = transaction_stamp.split(",")
+    card = transaction_split[4]
+    date_transaction = transaction_split[0]
+    time_transaction = transaction_split[1]
+    cursor = conn.execute('SELECT count(*) FROM cards WHERE freeAcess = 1 and cardUid = "'
+                          + str(card) + '"')
+    cursor_credit = conn.execute('SELECT credit FROM cards WHERE cardUid = "' + str(card) + '"')
+    rows = cursor.fetchall()
+    rows_credit = cursor_credit.fetchall()
+    print('SELECT credit FROM cards WHERE cardUid = "' + str(card) + '"')
+    if len(rows_credit) < 1:
+        print("Uknown Card: Correcting Balance")
+        rows_credit = [(0,), ]
+    contador = rows[0]
+    contador = contador[0]
+    saldo = rows_credit[0]
+    saldo = saldo[0]
+    saldo_final = saldo - 1
+    print_message()
+
 
 def resultado_terminal():
     if resultado == 1:
+        print("Accept")
         return sound_accept + "\r\n" + rele + "\r\n"
     else:
+        print("Deny")
         return sound_deny + "\r\n"
 
 
@@ -36,62 +64,61 @@ def is_empty(any_structure):
         return True
 
 
+def print_message():
+    print()
+    print("NOME DO TERMINAL: ", mensagem['id'])
+    print("MAC ADDRESS: ", mensagem['mac'])
+    print()
+    print("CARTÃO UID:\r\n", card)
+    print("DATA DO MOVIMENTO:\r\n", date_transaction[-2:] + "-"
+          + date_transaction[4:6] + "-" + date_transaction[:4])
+    print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":"
+          + time_transaction[2:4] + ":" + time_transaction[-2:])
+    print()
+    print("TAG LIVRE ACESSO VÁLIDA:", contador)
+    print("SALDO INICIAL:", saldo)
+    print()
+
+
+def reset_variables():
+    global card, resultado, saldo, contador, rows, rows_credit
+    card = 0
+    resultado = 0
+    saldo = 0
+    contador = 0
+    rows = 0
+    rows_credit = 0
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
+
+
 def catch_all(path):
-    global term_id
-    global card
-    global resultado
-    global conn
+    global term_id, card, resultado, conn, mensagem, transaction_split, \
+        transaction_stamp, date_transaction, time_transaction, rows, rows_credit, \
+        contador, resultado, saldo, saldo_final
+    conn = sqlite3.connect('axess-ws.db')
     pedido = path
-    if 'online' in pedido:
-        conn = sqlite3.connect('axess-ws.db')
-        mensagem=request.args
-        print()
-        print("NOME DO TERMINAL: ", mensagem['id'])
-        print("MAC ADDRESS: ", mensagem['mac'])
-        transaction_stamp = mensagem['trsn']
-        transaction_split = transaction_stamp.split(",")
-        card = transaction_split[4]
-        print()
-        print("CARTÃO UID:\r\n", card)
-        date_transaction = transaction_split[0]
-        print("DATA DO MOVIMENTO:\r\n", date_transaction[-2:] + "-"
-              + date_transaction[4:6] + "-" + date_transaction[:4])
-        time_transaction = transaction_split[1]
-        print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":"
-              + time_transaction[2:4] + ":" + time_transaction[-2:])
-        print()
-        cursor = conn.execute('SELECT count(*) FROM cards WHERE freeAcess = 1 and cardUid = "'
-                              + str(card) + '"')
-        cursor_credit = conn.execute('SELECT credit FROM cards WHERE cardUid ="' + str(card) + '"')
-        rows = cursor.fetchall()
-        rows_credit = cursor_credit.fetchall()
-        contador = rows[0]
-        if is_empty(rows_credit) is True and contador == (0,):  # SE NÃO TIVER SALDO NEGA ENTRADA
-            resultado = 0
-            return resultado_terminal()
-        saldo = rows_credit[0]
-        saldo_final = saldo[0]-1
-        print("TAG LIVRE ACESSO VÁLIDA:", contador[0])
-        print("SALDO INICIAL:", saldo[0])
-        print()
-        if contador[0] == 1:
+    reset_variables()
+    if 'online' in pedido:  # AXESS ONLINE REQUEST
+        online_request()
+        if contador > 0:
             resultado = 1  # ACEITAR MOVIMENTO
             print("FREE ACESS")
             conn.close()
             return resultado_terminal()
-        elif saldo[0] >= 1:
+        elif saldo >= 1:
             resultado = 1  # ACEITAR MOVIMENTO E DEBITAR SALDO
-            cursor = conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
-                                  + ' WHERE cardUid = "' + str(card) + '"')
+            conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
+                         + ' WHERE cardUid = "' + str(card) + '"')
             print("DEBITAR SALDO:", saldo_final)
             print()
             conn.commit()
             conn.close()
             return resultado_terminal()
         else:
-            resultado = 0 # REJEITAR MOVIMENTO!
+            resultado = 0  # REJEITAR MOVIMENTO!
             print("REJEITAR ENTRADA")
             print()
             conn.close()
@@ -105,6 +132,7 @@ def catch_all(path):
                       + "\r\n" + "Grupo Copigés - suporte@copiges.pt" + "\r\n"
         conn.close()
         return texto_final
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=porta)
