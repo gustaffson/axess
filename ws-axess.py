@@ -13,11 +13,15 @@ app = Flask(__name__)
 api = Api(app)
 
 # Parameters
+
+global term_id, card, resultado, conn, mensagem, transaction_split, transaction_stamp, \
+    date_transaction, time_transaction, rows, rows_credit, contador, resultado, saldo, \
+    saldo_final, pedido
+
 som, rele, sound_deny, sound_accept, porta = "beep=1", "relay=1,50", "beep=2", "beep=1", "5002"
 card = ''
-term_id = ''
-resultado = 0
 conn = sqlite3.connect('axess-ws.db')
+
 
 def online_request():
     global term_id, card, resultado, conn, mensagem, transaction_split, \
@@ -48,10 +52,8 @@ def online_request():
 
 def resultado_terminal():
     if resultado == 1:
-        print("Accept")
         return sound_accept + "\r\n" + rele + "\r\n"
     else:
-        print("Deny")
         return sound_deny + "\r\n"
 
 
@@ -90,6 +92,34 @@ def reset_variables():
     rows_credit = 0
 
 
+def reject_entry():
+    global resultado
+    resultado = 0  # REJEITAR MOVIMENTO!
+    print("REJEITAR ENTRADA")
+    print()
+    conn.close()
+    return resultado_terminal()
+
+
+def debit_account():
+    global resultado
+    resultado = 1  # ACEITAR MOVIMENTO E DEBITAR SALDO
+    conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
+                 + ' WHERE cardUid = "' + str(card) + '"')
+    print("DEBITAR SALDO:", saldo_final)
+    print()
+    conn.commit()
+    conn.close()
+    return resultado_terminal()
+
+
+def free_access():
+    resultado = 1  # ACEITAR MOVIMENTO
+    print("FREE ACESS")
+    conn.close()
+    return resultado_terminal()
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>', methods=['GET', 'POST'])
 
@@ -97,38 +127,27 @@ def reset_variables():
 def catch_all(path):
     global term_id, card, resultado, conn, mensagem, transaction_split, \
         transaction_stamp, date_transaction, time_transaction, rows, rows_credit, \
-        contador, resultado, saldo, saldo_final
+        contador, resultado, saldo, saldo_final, pedido
+
     conn = sqlite3.connect('axess-ws.db')
     pedido = path
+
     reset_variables()
+
     if 'online' in pedido:  # AXESS ONLINE REQUEST
         online_request()
         if contador > 0:
-            resultado = 1  # ACEITAR MOVIMENTO
-            print("FREE ACESS")
-            conn.close()
-            return resultado_terminal()
+            return free_access()
         elif saldo >= 1:
-            resultado = 1  # ACEITAR MOVIMENTO E DEBITAR SALDO
-            conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
-                         + ' WHERE cardUid = "' + str(card) + '"')
-            print("DEBITAR SALDO:", saldo_final)
-            print()
-            conn.commit()
-            conn.close()
-            return resultado_terminal()
+            return debit_account()
         else:
-            resultado = 0  # REJEITAR MOVIMENTO!
-            print("REJEITAR ENTRADA")
-            print()
-            conn.close()
-            return resultado_terminal()
+            return reject_entry()
     elif 'batch' in pedido:
         return "ack=1" + "\r\n"
     elif 'keepalive' in pedido:
         return "ack=1" + "\r\n"
     else:
-        texto_final = "Tipo de pedido não suportado! Verifique a documentação!" \
+        texto_final = "Pedido não suportado! Verifique a documentação!" \
                       + "\r\n" + "Grupo Copigés - suporte@copiges.pt" + "\r\n"
         conn.close()
         return texto_final
