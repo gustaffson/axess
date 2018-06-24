@@ -23,7 +23,70 @@ card = ''
 conn = sqlite3.connect('axess-ws.db')
 
 
-def online_request():
+def resultado_terminal():  #ORDEM PARA O TERMINAL
+    if resultado == 1:
+        return sound_accept + "\r\n" + rele + "\r\n"
+    else:
+        return sound_deny + "\r\n"
+
+
+def print_message():  #MENSAGENS DE DEBUG
+    print()
+    print("NOME DO TERMINAL: ", mensagem['id'])
+    print("MAC ADDRESS: ", mensagem['mac'])
+    print()
+    print("CARTÃO UID:\r\n", card)
+    print("DATA DO MOVIMENTO:\r\n", date_transaction[-2:] + "-"
+          + date_transaction[4:6] + "-" + date_transaction[:4])
+    print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":"
+          + time_transaction[2:4] + ":" + time_transaction[-2:])
+    print()
+    print("TAG LIVRE ACESSO VÁLIDA:", contador)
+    print("SALDO INICIAL:", saldo)
+    print()
+
+
+def reset_variables():  #LIMPAR TRANSACÇÃO
+    global card, resultado, saldo, contador, rows, rows_credit
+    card = 0
+    resultado = 0
+    saldo = 0
+    contador = 0
+    rows = 0
+    rows_credit = 0
+
+
+def reject_entry():  # REJEITAR MOVIMENTO!
+    global resultado
+    resultado = 0
+    print("REJEITAR ENTRADA")
+    print()
+    conn.close()
+    return resultado_terminal()
+
+
+def debit_account():  # ACEITAR MOVIMENTO E DEBITAR SALDO
+    global resultado
+    resultado = 1
+    conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
+                 + ' WHERE cardUid = "' + str(card) + '"')
+    print("DEBITAR SALDO:", saldo_final)
+    print()
+    conn.commit()
+    conn.close()
+    return resultado_terminal()
+
+
+def free_access():  # ACEITAR MOVIMENTO
+    global resultado
+    resultado = 1
+    print("FREE ACESS")
+    print()
+    conn.close()
+    return resultado_terminal()
+
+
+def online_request():  #TRATAR UM PEDIDO ONLINE DE UM TERMINAL
     global term_id, card, resultado, conn, mensagem, transaction_split, \
         transaction_stamp, date_transaction, time_transaction, rows, rows_credit, \
         contador, resultado, saldo, saldo_final
@@ -50,82 +113,10 @@ def online_request():
     print_message()
 
 
-def resultado_terminal():
-    if resultado == 1:
-        return sound_accept + "\r\n" + rele + "\r\n"
-    else:
-        return sound_deny + "\r\n"
-
-
-def print_message():
-    print()
-    print("NOME DO TERMINAL: ", mensagem['id'])
-    print("MAC ADDRESS: ", mensagem['mac'])
-    print()
-    print("CARTÃO UID:\r\n", card)
-    print("DATA DO MOVIMENTO:\r\n", date_transaction[-2:] + "-"
-          + date_transaction[4:6] + "-" + date_transaction[:4])
-    print("HORA DO MOVIMENTO:\r\n", time_transaction[:2] + ":"
-          + time_transaction[2:4] + ":" + time_transaction[-2:])
-    print()
-    print("TAG LIVRE ACESSO VÁLIDA:", contador)
-    print("SALDO INICIAL:", saldo)
-    print()
-
-
-def reset_variables():
-    global card, resultado, saldo, contador, rows, rows_credit
-    card = 0
-    resultado = 0
-    saldo = 0
-    contador = 0
-    rows = 0
-    rows_credit = 0
-
-
-def reject_entry():
-    global resultado
-    resultado = 0  # REJEITAR MOVIMENTO!
-    print("REJEITAR ENTRADA")
-    print()
-    conn.close()
-    return resultado_terminal()
-
-
-def debit_account():
-    global resultado
-    resultado = 1  # ACEITAR MOVIMENTO E DEBITAR SALDO
-    conn.execute('UPDATE cards SET credit = ' + str(saldo_final)
-                 + ' WHERE cardUid = "' + str(card) + '"')
-    print("DEBITAR SALDO:", saldo_final)
-    print()
-    conn.commit()
-    conn.close()
-    return resultado_terminal()
-
-
-def free_access():
-    global resultado
-    resultado = 1  # ACEITAR MOVIMENTO
-    print("FREE ACESS")
-    print()
-    conn.close()
-    return resultado_terminal()
-
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>', methods=['GET', 'POST'])
-
-
-def catch_all(path):
-    global term_id, card, resultado, conn, mensagem, transaction_split, \
-        transaction_stamp, date_transaction, time_transaction, rows, rows_credit, \
-        contador, resultado, saldo, saldo_final, pedido
-
-    conn = sqlite3.connect('axess-ws.db')
-    pedido = path
-
-    reset_variables()
+def process_request():  #ANALISAR E DEVOLVER O PEDIDO AO TERMINAL DE ACORDO
+    global term_id, card, resultado, conn, mensagem, transaction_split, transaction_stamp, \
+        date_transaction, time_transaction, rows, rows_credit, contador, resultado, saldo, \
+        saldo_final, pedido
 
     if 'online' in pedido:  # AXESS ONLINE REQUEST
         online_request()
@@ -145,6 +136,22 @@ def catch_all(path):
         conn.close()
         return texto_final
 
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>', methods=['GET', 'POST'])
+
+
+def catch_all(path):
+    global term_id, card, resultado, conn, mensagem, transaction_split, \
+        transaction_stamp, date_transaction, time_transaction, rows, rows_credit, \
+        contador, resultado, saldo, saldo_final, pedido
+
+    conn = sqlite3.connect('axess-ws.db')
+    pedido = path
+
+    reset_variables()
+
+    return process_request()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=porta)
