@@ -2,7 +2,7 @@
 # coding=utf-8
 """
   Ax Webservice - ver. 1.05
-  Developed by Gustavo Pinto - Módulos Flask, Flask Restful, sqlite3 e datetime
+  Developed by Gustavo Pinto - Módulos Flask, Flask Restful, e sqlite3
 """
 
 import sqlite3
@@ -55,15 +55,6 @@ def resultado_terminal():
         return sound_accept + "\r\n" + rele + "\r\n"
     else:
         return sound_deny + "\r\n"
-
-
-def is_empty(any_structure):
-    if any_structure:
-        print('Contem registos.')
-        return False
-    else:
-        print('Não contém registos.')
-        return True
 
 
 def print_message():
