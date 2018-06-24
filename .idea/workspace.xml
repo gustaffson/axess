@@ -18,62 +18,18 @@
       <file leaf-file-name="ws-axess.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ws-axess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-528">
-              <caret line="93" column="51" lean-forward="true" selection-start-line="93" selection-start-column="51" selection-end-line="93" selection-end-column="51" />
+            <state relative-caret-position="429">
+              <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
               <folding>
-                <element signature="e#485#1562#0" expanded="false" />
-                <element signature="e#1595#1757#0" expanded="false" />
-                <element signature="e#1793#1933#0" expanded="false" />
-                <element signature="e#1961#2470#0" expanded="false" />
-                <element signature="e#2500#2653#0" expanded="false" />
+                <element signature="e#663#1740#0" expanded="false" />
+                <element signature="e#1773#1889#0" expanded="false" />
+                <element signature="e#1925#2065#0" expanded="false" />
+                <element signature="e#2093#2602#0" expanded="false" />
+                <element signature="e#2632#2785#0" expanded="false" />
+                <element signature="e#2812#2960#0" expanded="false" />
+                <element signature="e#2988#3303#0" expanded="false" />
+                <element signature="e#3329#3469#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.conda/envs/k36/lib/python3.6/site-packages/flask/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="1734" column="28" lean-forward="false" selection-start-line="1734" selection-start-column="28" selection-end-line="1734" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cards" pinned="false" current-in-tab="false">
-        <entry file="db://b942907b-ce82-44d6-b4dd-14fd5e7a9c85/objects/schemas/main/tables/cards">
-          <provider selected="true" editor-type-id="1.DATA">
-            <state row-count="4" readonly="false">
-              <columns>
-                <column name="idCard" position="0" visible="true" />
-                <column name="cardUid" position="1" visible="true" />
-                <column name="apbStatus" position="2" visible="true" />
-                <column name="freeAcess" position="3" visible="true" />
-                <column name="credit" position="4" visible="true" />
-              </columns>
-              <sorting />
-              <content-types />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_pydev_execfile.py" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="socketserver.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.conda/envs/k36/lib/python3.6/socketserver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -93,6 +49,7 @@
       <find>INICIAL</find>
       <find>reset_var</find>
       <find>deny</find>
+      <find>Deny</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -306,7 +263,21 @@
       <option name="project" value="LOCAL" />
       <updated>1529778031183</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Rework completo.">
+      <created>1529798182778</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1529798182778</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Rework completo.">
+      <created>1529799392998</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1529799392998</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -321,7 +292,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2625538" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2625538" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964131" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3981603" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -344,7 +315,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -354,11 +325,14 @@
         <state relative-caret-position="1116">
           <caret line="74" column="30" lean-forward="true" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
           <folding>
-            <element signature="e#485#1562#0" expanded="false" />
-            <element signature="e#1595#1757#0" expanded="false" />
-            <element signature="e#1793#1933#0" expanded="false" />
-            <element signature="e#1961#2470#0" expanded="false" />
-            <element signature="e#2500#2653#0" expanded="false" />
+            <element signature="e#663#1740#0" expanded="false" />
+            <element signature="e#1773#1889#0" expanded="false" />
+            <element signature="e#1925#2065#0" expanded="false" />
+            <element signature="e#2093#2602#0" expanded="false" />
+            <element signature="e#2632#2785#0" expanded="false" />
+            <element signature="e#2812#2960#0" expanded="false" />
+            <element signature="e#2988#3303#0" expanded="false" />
+            <element signature="e#3329#3469#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -399,11 +373,14 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#485#1562#0" expanded="false" />
-            <element signature="e#1595#1757#0" expanded="false" />
-            <element signature="e#1793#1933#0" expanded="false" />
-            <element signature="e#1961#2470#0" expanded="false" />
-            <element signature="e#2500#2653#0" expanded="false" />
+            <element signature="e#663#1740#0" expanded="false" />
+            <element signature="e#1773#1889#0" expanded="false" />
+            <element signature="e#1925#2065#0" expanded="false" />
+            <element signature="e#2093#2602#0" expanded="false" />
+            <element signature="e#2632#2785#0" expanded="false" />
+            <element signature="e#2812#2960#0" expanded="false" />
+            <element signature="e#2988#3303#0" expanded="false" />
+            <element signature="e#3329#3469#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -429,11 +406,14 @@
         <state relative-caret-position="576">
           <caret line="38" column="45" lean-forward="false" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
           <folding>
-            <element signature="e#485#1562#0" expanded="false" />
-            <element signature="e#1595#1757#0" expanded="false" />
-            <element signature="e#1793#1933#0" expanded="false" />
-            <element signature="e#1961#2470#0" expanded="false" />
-            <element signature="e#2500#2653#0" expanded="false" />
+            <element signature="e#663#1740#0" expanded="false" />
+            <element signature="e#1773#1889#0" expanded="false" />
+            <element signature="e#1925#2065#0" expanded="false" />
+            <element signature="e#2093#2602#0" expanded="false" />
+            <element signature="e#2632#2785#0" expanded="false" />
+            <element signature="e#2812#2960#0" expanded="false" />
+            <element signature="e#2988#3303#0" expanded="false" />
+            <element signature="e#3329#3469#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -548,14 +528,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ws-axess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-528">
-          <caret line="93" column="51" lean-forward="true" selection-start-line="93" selection-start-column="51" selection-end-line="93" selection-end-column="51" />
+        <state relative-caret-position="429">
+          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
-            <element signature="e#485#1562#0" expanded="false" />
-            <element signature="e#1595#1757#0" expanded="false" />
-            <element signature="e#1793#1933#0" expanded="false" />
-            <element signature="e#1961#2470#0" expanded="false" />
-            <element signature="e#2500#2653#0" expanded="false" />
+            <element signature="e#663#1740#0" expanded="false" />
+            <element signature="e#1773#1889#0" expanded="false" />
+            <element signature="e#1925#2065#0" expanded="false" />
+            <element signature="e#2093#2602#0" expanded="false" />
+            <element signature="e#2632#2785#0" expanded="false" />
+            <element signature="e#2812#2960#0" expanded="false" />
+            <element signature="e#2988#3303#0" expanded="false" />
+            <element signature="e#3329#3469#0" expanded="false" />
           </folding>
         </state>
       </provider>

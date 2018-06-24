@@ -114,8 +114,10 @@ def debit_account():
 
 
 def free_access():
+    global resultado
     resultado = 1  # ACEITAR MOVIMENTO
     print("FREE ACESS")
+    print()
     conn.close()
     return resultado_terminal()
 
