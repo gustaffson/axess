@@ -14,7 +14,37 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ws-axess.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ws-axess.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-8">
+              <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
+              <folding>
+                <element signature="e#148#162#0" expanded="true" />
+                <element signature="e#431#547#0" expanded="false" />
+                <element signature="e#596#1105#0" expanded="false" />
+                <element signature="e#1155#1308#0" expanded="false" />
+                <element signature="e#1358#1483#0" expanded="false" />
+                <element signature="e#1548#1826#0" expanded="false" />
+                <element signature="e#1873#1992#0" expanded="false" />
+                <element signature="e#2062#3139#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="socketserver.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.conda/envs/k36/lib/python3.6/socketserver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1214">
+              <caret line="443" column="31" lean-forward="true" selection-start-line="443" selection-start-column="31" selection-end-line="443" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -73,15 +103,15 @@
         <subPane>
           <expand>
             <path>
-              <item name="AxessWs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AxessWs" type="462c0819:PsiDirectoryNode" />
+              <item name="axess" type="b2602c69:ProjectViewProjectNode" />
+              <item name="axess" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -265,7 +295,35 @@
       <option name="project" value="LOCAL" />
       <updated>1529800225677</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Rework completo.">
+      <created>1529800598279</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1529800598279</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Rework completo.">
+      <created>1529883362965</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1529883362965</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Rework completo.">
+      <created>1529883477040</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1529883477040</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Rework completo.">
+      <created>1529883550524</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1529883550524</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -280,9 +338,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2625538" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27116212" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964131" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3981603" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3981603" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -303,24 +361,49 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/ws-axess.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="e#148#162#0" expanded="true" />
+            <element signature="e#431#547#0" expanded="false" />
+            <element signature="e#596#1105#0" expanded="false" />
+            <element signature="e#1155#1308#0" expanded="false" />
+            <element signature="e#1358#1483#0" expanded="false" />
+            <element signature="e#1548#1826#0" expanded="false" />
+            <element signature="e#1873#1992#0" expanded="false" />
+            <element signature="e#2062#3139#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.conda/envs/k36/lib/python3.6/socketserver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8316">
+          <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ws-axess.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1116">
           <caret line="74" column="30" lean-forward="true" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
           <folding>
             <element signature="e#148#162#0" expanded="true" />
-            <element signature="e#654#1731#0" expanded="false" />
-            <element signature="e#1764#1880#0" expanded="false" />
-            <element signature="e#1908#2417#0" expanded="false" />
-            <element signature="e#2447#2600#0" expanded="false" />
-            <element signature="e#2627#2775#0" expanded="false" />
-            <element signature="e#2803#3118#0" expanded="false" />
-            <element signature="e#3144#3284#0" expanded="false" />
+            <element signature="e#431#547#0" expanded="false" />
+            <element signature="e#596#1105#0" expanded="false" />
+            <element signature="e#1155#1308#0" expanded="false" />
+            <element signature="e#1358#1483#0" expanded="false" />
+            <element signature="e#1548#1826#0" expanded="false" />
+            <element signature="e#1873#1992#0" expanded="false" />
+            <element signature="e#2062#3139#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -329,7 +412,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="11" column="8" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -362,13 +444,13 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#148#162#0" expanded="true" />
-            <element signature="e#654#1731#0" expanded="false" />
-            <element signature="e#1764#1880#0" expanded="false" />
-            <element signature="e#1908#2417#0" expanded="false" />
-            <element signature="e#2447#2600#0" expanded="false" />
-            <element signature="e#2627#2775#0" expanded="false" />
-            <element signature="e#2803#3118#0" expanded="false" />
-            <element signature="e#3144#3284#0" expanded="false" />
+            <element signature="e#431#547#0" expanded="false" />
+            <element signature="e#596#1105#0" expanded="false" />
+            <element signature="e#1155#1308#0" expanded="false" />
+            <element signature="e#1358#1483#0" expanded="false" />
+            <element signature="e#1548#1826#0" expanded="false" />
+            <element signature="e#1873#1992#0" expanded="false" />
+            <element signature="e#2062#3139#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -377,7 +459,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -395,13 +476,13 @@
           <caret line="38" column="45" lean-forward="false" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
           <folding>
             <element signature="e#148#162#0" expanded="true" />
-            <element signature="e#654#1731#0" expanded="false" />
-            <element signature="e#1764#1880#0" expanded="false" />
-            <element signature="e#1908#2417#0" expanded="false" />
-            <element signature="e#2447#2600#0" expanded="false" />
-            <element signature="e#2627#2775#0" expanded="false" />
-            <element signature="e#2803#3118#0" expanded="false" />
-            <element signature="e#3144#3284#0" expanded="false" />
+            <element signature="e#431#547#0" expanded="false" />
+            <element signature="e#596#1105#0" expanded="false" />
+            <element signature="e#1155#1308#0" expanded="false" />
+            <element signature="e#1358#1483#0" expanded="false" />
+            <element signature="e#1548#1826#0" expanded="false" />
+            <element signature="e#1873#1992#0" expanded="false" />
+            <element signature="e#2062#3139#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -410,7 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -490,19 +570,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.conda/envs/k36/lib/python3.6/socketserver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -510,23 +581,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="1734" column="28" lean-forward="false" selection-start-line="1734" selection-start-column="28" selection-end-line="1734" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.conda/envs/k36/lib/python3.6/socketserver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1214">
+          <caret line="443" column="31" lean-forward="true" selection-start-line="443" selection-start-column="31" selection-end-line="443" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ws-axess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="72" column="11" lean-forward="true" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
+        <state relative-caret-position="-8">
+          <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
           <folding>
             <element signature="e#148#162#0" expanded="true" />
-            <element signature="e#654#1731#0" expanded="false" />
-            <element signature="e#1764#1880#0" expanded="false" />
-            <element signature="e#1908#2417#0" expanded="false" />
-            <element signature="e#2447#2600#0" expanded="false" />
-            <element signature="e#2627#2775#0" expanded="false" />
-            <element signature="e#2803#3118#0" expanded="false" />
-            <element signature="e#3144#3284#0" expanded="false" />
+            <element signature="e#431#547#0" expanded="false" />
+            <element signature="e#596#1105#0" expanded="false" />
+            <element signature="e#1155#1308#0" expanded="false" />
+            <element signature="e#1358#1483#0" expanded="false" />
+            <element signature="e#1548#1826#0" expanded="false" />
+            <element signature="e#1873#1992#0" expanded="false" />
+            <element signature="e#2062#3139#0" expanded="false" />
           </folding>
         </state>
       </provider>

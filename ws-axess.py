@@ -14,13 +14,7 @@ api = Api(app)
 
 # Parameters
 
-global term_id, card, resultado, conn, mensagem, transaction_split, transaction_stamp, \
-    date_transaction, time_transaction, rows, rows_credit, contador, resultado, saldo, \
-    saldo_final, pedido
-
 som, rele, sound_deny, sound_accept, porta = "beep=1", "relay=1,50", "beep=2", "beep=1", "5002"
-card = ''
-conn = sqlite3.connect('axess-ws.db')
 
 
 def resultado_terminal():  #ORDEM PARA O TERMINAL
