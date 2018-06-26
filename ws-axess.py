@@ -1,5 +1,5 @@
-# ! / usr / bin / python
-# coding=utf-8
+#!/usr/bin/python
+#coding=utf-8
 """
   Ax Webservice - ver. 1.05
   Developed by Gustavo Pinto - Módulos Flask, Flask Restful, e sqlite3
